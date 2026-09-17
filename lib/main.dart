@@ -65,7 +65,9 @@ class _RunMyAppState extends State<RunMyApp> {
               const SizedBox(height: 20),
 
               // PART 1 TASK: Status Badge Container
-              Container(
+              AnimatedContainer(
+                //Changes the container to fading
+                duration: const Duration(milliseconds: 400),
                 width: 220,
                 height: 64,
                 margin: const EdgeInsets.all(20),
