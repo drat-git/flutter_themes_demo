@@ -85,12 +85,18 @@ class _RunMyAppState extends State<RunMyApp> {
                   ],
                 ),
                 alignment: Alignment.center,
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.circle, size: 12, color: Colors.black87),
-                    SizedBox(width: 8),
-                    Text('Status: Online', style: TextStyle(fontSize: 16, color: Colors.black)),
+                    const Icon(Icons.circle, size: 12, color: Colors.black87),
+                    const SizedBox(width: 8),
+                    // Change the displayed status to match the selected theme.
+                    Text(
+                      _themeMode == ThemeMode.dark
+                          ? 'Status: Sleeping'
+                          : 'Status: Awake',
+                      style: const TextStyle(fontSize: 16, color: Colors.black),
+                    ),
                   ],
                 ),
               ),
