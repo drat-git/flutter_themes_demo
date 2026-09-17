@@ -30,10 +30,21 @@ class _RunMyAppState extends State<RunMyApp> {
       
       // TODO: Customize these themes further if desired
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        useMaterial3: true,
+        // Generate an app-wide Material 3 palette from a seed color.
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.light,
+        ),
         scaffoldBackgroundColor: Colors.grey[200], // Light mode background
       ),
-      darkTheme: ThemeData.dark(), // Dark mode configuration
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.dark,
+        ),
+      ), // Dark mode configuration
       
       themeMode: _themeMode, // Connects the state to the app
 
