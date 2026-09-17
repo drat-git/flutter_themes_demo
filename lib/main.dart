@@ -109,11 +109,15 @@ class _RunMyAppState extends State<RunMyApp> {
           // Read the status color from the active custom ThemeExtension.
           final appColors = Theme.of(context).extension<AppColors>()!;
 
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Status Card Demo'),
-            ),
-            body: Center(
+          // Animate theme changes across the whole screen.
+          return AnimatedTheme(
+            data: Theme.of(context),
+            duration: const Duration(milliseconds: 500),
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text('Status Card Demo'),
+              ),
+              body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -191,6 +195,7 @@ class _RunMyAppState extends State<RunMyApp> {
               ),
             ],
           ),
+              ),
             ),
           );
         },
