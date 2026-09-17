@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const RunMyApp());
@@ -20,6 +21,38 @@ class _RunMyAppState extends State<RunMyApp> {
     setState(() {
       _themeMode = themeMode;
     });
+    _saveThemeMode(themeMode);
+  }
+
+  // Restore the saved theme selection when one is available.
+  Future<void> _loadThemeMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    final saved = prefs.getString('themeMode');
+
+    ThemeMode savedThemeMode = _themeMode;
+    if (saved == ThemeMode.light.name) {
+      savedThemeMode = ThemeMode.light;
+    } else if (saved == ThemeMode.dark.name) {
+      savedThemeMode = ThemeMode.dark;
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _themeMode = savedThemeMode;
+    });
+  }
+
+  // Store the selected theme so it is remembered after the app closes.
+  Future<void> _saveThemeMode(ThemeMode mode) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('themeMode', mode.name);
+  }
+
+  // Load the stored theme when the app starts.
+  @override
+  void initState() {
+    super.initState();
+    _loadThemeMode();
   }
 
   @override
