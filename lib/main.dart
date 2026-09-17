@@ -51,7 +51,8 @@ class _RunMyAppState extends State<RunMyApp> {
                 backgroundColor: _themeMode == ThemeMode.dark
                     ? Colors.teal
                     : Colors.blueGrey,
-                child: const Icon(Icons.person, size: 42, color: Colors.white),
+                // Personalize the avatar with a palette icon to represent colors and themes.
+                child: const Icon(Icons.palette, size: 42, color: Colors.white),
               ),
 
               const SizedBox(height: 12),
