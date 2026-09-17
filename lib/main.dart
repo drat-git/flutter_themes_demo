@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Define a custom theme color that is not covered by ColorScheme.
+class AppColors extends ThemeExtension<AppColors> {
+  final Color success;
+
+  const AppColors({required this.success});
+
+  @override
+  AppColors copyWith({Color? success}) =>
+      AppColors(success: success ?? this.success);
+
+  @override
+  AppColors lerp(ThemeExtension<AppColors>? other, double t) {
+    if (other is! AppColors) return this;
+    return AppColors(success: Color.lerp(success, other.success, t)!);
+  }
+}
+
 void main() {
   runApp(const RunMyApp());
 }
@@ -69,6 +86,9 @@ class _RunMyAppState extends State<RunMyApp> {
           seedColor: Colors.deepPurple,
           brightness: Brightness.light,
         ),
+        extensions: const [
+          AppColors(success: Colors.green),
+        ],
         scaffoldBackgroundColor: Colors.grey[200], // Light mode background
       ),
       darkTheme: ThemeData(
@@ -77,15 +97,23 @@ class _RunMyAppState extends State<RunMyApp> {
           seedColor: Colors.deepPurple,
           brightness: Brightness.dark,
         ),
+        extensions: const [
+          AppColors(success: Colors.lightGreenAccent),
+        ],
       ), // Dark mode configuration
       
       themeMode: _themeMode, // Connects the state to the app
 
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Status Card Demo'),
-        ),
-        body: Center(
+      home: Builder(
+        builder: (context) {
+          // Read the status color from the active custom ThemeExtension.
+          final appColors = Theme.of(context).extension<AppColors>()!;
+
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Status Card Demo'),
+            ),
+            body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -135,7 +163,7 @@ class _RunMyAppState extends State<RunMyApp> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.circle, size: 12, color: Colors.black87),
+                    Icon(Icons.circle, size: 12, color: appColors.success),
                     const SizedBox(width: 8),
                     // Change the displayed status to match the selected theme.
                     Text(
@@ -163,7 +191,9 @@ class _RunMyAppState extends State<RunMyApp> {
               ),
             ],
           ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
