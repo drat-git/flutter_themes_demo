@@ -70,9 +70,10 @@ class _RunMyAppState extends State<RunMyApp> {
                 margin: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   // Use a ternary operator to check theme brightness
+                  // Personalize the badge with light purple in dark mode and blue in light mode.
                   color: _themeMode == ThemeMode.dark 
-                      ? Colors.teal 
-                      : Colors.amber,
+                      ? Colors.purple[200] 
+                      : Colors.blue,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 alignment: Alignment.center,
