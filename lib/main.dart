@@ -75,6 +75,14 @@ class _RunMyAppState extends State<RunMyApp> {
                       ? Colors.purple[200] 
                       : Colors.blue,
                   borderRadius: BorderRadius.circular(16),
+                  // Add a subtle shadow to give the badge depth.
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
                 ),
                 alignment: Alignment.center,
                 child: const Row(
